@@ -1,5 +1,6 @@
 require "colorize"
 require_relative "cursorable"
+require 'byebug'
 
 class Display
   include Cursorable
@@ -27,7 +28,13 @@ class Display
 
   def colors_for(i, j)
     if [i, j] == @cursor_pos
-      bg = :pink
+      bg = :red
+    elsif board.rows[@cursor_pos.first][@cursor_pos.last].moves && board.rows[@cursor_pos.first][@cursor_pos.last].moves.include?([i, j])
+
+      bg = :yellow
+      # board.rows[@cursor_pos.first][@cursor_pos.last].pos.class != NullPiece &&
+    # elsif board.rows[@cursor_pos.first][@cursor_pos.last].moves && board.rows[@cursor_pos.first][@cursor_pos.last]moves.include?([i, j])
+    #     bg = :green
     elsif (i + j).odd?
       bg = :light_blue
     else
