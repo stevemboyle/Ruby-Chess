@@ -11,6 +11,11 @@ class Display
     @board = board
     @cursor_pos = [0, 0]
     @notifications = {}
+    @selected = false
+  end
+
+  def selected?
+    @selected
   end
 
   def build_grid
@@ -29,9 +34,12 @@ class Display
   def colors_for(i, j)
     if [i, j] == @cursor_pos
       bg = :red
+    elsif [i, j] == @selected_pos
+      bg = :orange
     elsif board.rows[@cursor_pos.first][@cursor_pos.last].moves && board.rows[@cursor_pos.first][@cursor_pos.last].moves.include?([i, j])
-
       bg = :yellow
+    elsif @selected_pos && board.rows[@selected_pos.first][@selected_pos.last].moves && board.rows[@selected_pos.first][@selected_pos.last].moves.include?([i, j])
+      bg = :green
       # board.rows[@cursor_pos.first][@cursor_pos.last].pos.class != NullPiece &&
     # elsif board.rows[@cursor_pos.first][@cursor_pos.last].moves && board.rows[@cursor_pos.first][@cursor_pos.last]moves.include?([i, j])
     #     bg = :green
